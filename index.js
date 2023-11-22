@@ -50,10 +50,11 @@ function builAccount() {
             }
         ]).then(answer => {
             const accountName = answer['accountName']
-            console.info(accountName)
+            console.info(accountName) 
 
-            if (!fs.existsSync('accounts')) {
-                fs.mkdirSync('accounts')
+            if (!fs.existsSync('accounts')) {//Ao usar ! (negando a função fs.existsSync()), você inverte o valor booleano retornado pela função. Isso significa que se o caminho existir, !fs.existsSync() será false, e se o caminho não existir, !fs.existsSync() será true. Essa abordagem pode ser usada para realizar ações específicas se um determinado caminho não existir no sistema de arquivos.
+
+                fs.mkdirSync('accounts') /*fs.mkdirSync() é um método que cria um novo diretório síncrono (ou seja, de forma bloqueante) no sistema de arquivos. Ele retorna undefined se o diretório for criado com sucesso e gera um erro caso contrário.*/   
             }
             if (fs.existsSync(`accounts/${accountName}.json`)) {
                 console.log(
@@ -128,7 +129,8 @@ function addAmount(accountName, amount) {
         function (err) {
             console.log(err)
         }
-    )
+    )//fs.writeFileSync() é um método em Node.js que é usado para escrever dados em um arquivo de forma síncrona. Ele cria um novo arquivo se o arquivo não existir ou substitui o conteúdo do arquivo se ele já existir. Esse método é útil para escrever dados em arquivos de texto, como logs, configurações ou qualquer outra informação que precise ser armazenada persistentemente em um arquivo no sistema de arquivos. 
+
     console.log(chalk.green(`Foi depositado o valor de R$${amount} na sua conta!`))
 }
 
@@ -138,6 +140,8 @@ function getAccount(accountName) {
         flag: 'r'
     })
     return JSON.parse(accountJSON)
+    //fs.writeFileSync() é um método em Node.js que é usado para escrever dados em um arquivo de forma síncrona. Ele cria um novo arquivo se o arquivo não existir ou substitui o conteúdo do arquivo se ele já existir. Esse método é útil para escrever dados em arquivos de texto, como logs, configurações ou qualquer outra informação que precise ser armazenada persistentemente em um arquivo no sistema de arquivos. 
+
 }
 
 // show account Balance
